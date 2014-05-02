@@ -1295,7 +1295,7 @@ public class StaggeredGridView extends ViewGroup {
 
         int highestView = getHeight();
 
-        for (int i = 0; i < mColCount; i++) {
+        for (int i = 0; i < mColCount;) {
         	final View child = getFirstChildAtColumn(i);
 
         	if(child == null){
@@ -1318,26 +1318,24 @@ public class StaggeredGridView extends ViewGroup {
 
     private View getFirstChildAtColumn(int column){
 
-    	if(this.getChildCount() > column){
-    		for(int i = 0; i<this.mColCount; i++){
-    			final View child = getChildAt(i);
+		for(int i = 0; i<this.mColCount; i++){
+			final View child = getChildAt(i);
 
-    			if(child!=null) {
-    				final int left = child.getLeft();
-        			int col = 0;
+			if(child!=null) {
+				final int left = child.getLeft();
+    			int col = 0;
 
-        			// determine the column by cycling widths
-        			while( left > col*(this.mColWidth + mItemMargin*2) + getPaddingLeft() ){
-        				col++;
-        			}
-
-        			if(col == column){
-        				return child;
-        			}
-
+    			// determine the column by cycling widths
+    			while( left > col*(this.mColWidth + mItemMargin*2) + getPaddingLeft() ){
+    				col++;
     			}
-    		}
-    	}
+
+    			if(col == column){
+    				return child;
+    			}
+
+			}
+		}
 
     	return null;
     }
